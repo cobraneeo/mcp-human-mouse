@@ -1,0 +1,38 @@
+[project]
+name = "mcp-human-mouse"
+version = "0.1.0"
+description = "Servidor MCP que lee y mueve el ratón con trayectorias que imitan a un humano"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Luis" }]
+dependencies = [
+    "mcp>=1.2,<2",
+    "pyobjc-framework-Quartz>=10.3; sys_platform == 'darwin'",
+    "pynput>=1.7.6; sys_platform == 'linux'",
+]
+
+[project.urls]
+Repository = "https://github.com/cobraneeo/mcp-human-mouse"
+Issues = "https://github.com/cobraneeo/mcp-human-mouse/issues"
+
+[project.scripts]
+mcp-human-mouse = "human_mouse.server:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "pytest>=8",
+    "pytest-asyncio>=0.24",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["human_mouse"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+asyncio_default_fixture_loop_scope = "function"
